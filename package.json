@@ -1,0 +1,35 @@
+{
+  "name": "yumeko",
+  "version": "0.1.0",
+  "description": "A simple discord bot",
+  "scripts": {
+    "start": "node server.js",
+    "test": ""
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "discordbot"
+  ],
+  "engines": {
+    "node": "10.x"
+  },
+  "author": "wiisportsresorts",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "simple-youtube-api": "^5.2.1",
+    "ytdl-core": "^1.0.9",
+    "node-opus": "^0.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^4.0.0",
+    "eslint-config-aqua": "^1.0.0"
+  },
+  "eslintConfig": {
+    "extends": "aqua",
+    "rules": {
+      "no-console": 0
+    }
+  }
+}
