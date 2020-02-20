@@ -6,10 +6,23 @@ const ytdl = require('ytdl-core');
 
 const text = require('./text');
 const commands = require('./commands');
-const config = JSON.parse(fs.readFileSync('config.json'));
 
+const config = () => {
+  try { 
+    let file = JSON.parse(fs.readFileSync('config.json')) 
+    return {
+      discordBotToken: file.discordBotToken,
+      youtubeApiKey: file.youtubeApiKey
+    }
+  } catch (err) { 
+    return {
+      discordBotToken: process.env.discordBotToken,
+      youtubeApiKey: process.env.youtubeApiKey
+    }
+  }
+}
 const client = new Discord.Client({ disableEveryone: true });
-const youtube = new YouTube(config.youtubeApiKey);
+const youtube = new YouTube(config().youtubeApiKey);
 
 const commandPrefix = '^';
 const queue = new Map();
@@ -137,4 +150,6 @@ async function play(guild, song) {
   serverQueue.textChannel.send(text.bot.playF(song.title));
 }
 
-client.login(config.discordBotToken);
+client
+  .login(config().discordBotToken)
+  .catch(err => console.log)
