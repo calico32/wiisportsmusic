@@ -1,6 +1,14 @@
 /* jshint esversion: 8 */
 module.exports = {
+  other: {
+    expressStartF: port => "Express app started on port " + port,
+    keysUndefined: `Your YouTube API key or Discord bot token was not found.
+Either:
+- add them to config.json with the key names "discordBotToken" and "youtubeApiKey".
+- set the environment variables "discordBotToken" and "youtubeApiKey" to their respective values.`
+  },
   user: {
+    insufficientPermissions: "Insufficient permissions.",
     notInVoiceChannel: 'You need to be in a voice channel to use that command.',
     invalidSearchSelection: 'Invalid selection.',
     helpF: prefix =>
@@ -32,11 +40,8 @@ Bot manager only:
 `
   },
   bot: {
-    ready: `
-    
-
-------------------------------
-Bot ready!`,
+    ready: `Bot ready!`,
+    restarting: 'Restart command issued. Restarting...',
     disconnected: 'Bot disconnected.',
     reconnecting: 'Bot is reconnecting...',
     cannotConnect: 'Cannot join voice channel, permission not granted.',
@@ -65,13 +70,13 @@ Bot ready!`,
 
 ${songResults}
 
-**Now playing:** ${songs[0].title}`;
+Now playing: **${songs[0].title}**`;
     },
     searchResultsF: videos => {
       let videoResults = '';
       let index = 0;
       videos.map(video2 => {
-        videoResults += `**${++index} -** ${unescape(escape(video2.title))}`;
+        videoResults += `${++index} - ${unescape(escape(video2.title))}`;
         videoResults += '\n';
       });
 
@@ -79,7 +84,7 @@ ${songResults}
 
 ${videoResults}
 
-Please provide a value to select one of the search results ranging from 1-10.
+Type 1-10 to select a video.
       `;
     }
   }
