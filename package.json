@@ -1,26 +1,57 @@
 {
-  "name": "discord-music-bot",
-  "version": "0.1.0a",
-  "description": "A simple discord bot",
+  "name": "wiisportsmusic-2",
+  "version": "1.0.0",
+  "description": "a discord music bot",
   "scripts": {
-    "start": "node server.js",
-    "test": "echo \"No test specified!\""
+    "prod": "pnpm run build:prod && pnpm run server:prod",
+    "build:prod": "webpack -p",
+    "server:prod": "node ./dist/bot.js",
+    "dev": "pnpm run build:dev && concurrently -n \"webpack,nodemon\" -c \"white.bgBlue.bold,white.bgGreen.bold\" -i \"pnpm run build:watch\" \"pnpm run server:watch\"",
+    "server:watch": "nodemon \"./dist/bot.js\"",
+    "build:watch": "webpack -d --watch",
+    "build:dev": "webpack -d"
   },
-  "keywords": [
-    "discord",
-    "bot",
-    "discordbot"
-  ],
-  "engines": {
-    "node": "10.x"
+  "repository": {
+    "directory": "./"
   },
-  "author": "wiisportsresorts",
+  "keywords": [],
+  "author": "",
   "license": "MIT",
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "dist"
+    ]
+  },
+  "engines": {
+    "node": "12.x"
+  },
   "dependencies": {
-    "discord.js": "^11.5.1",
-    "simple-youtube-api": "^5.2.1",
-    "ytdl-core": "^1.0.9",
-    "node-opus": "^0.3.2",
-    "express": "^4.17.1"
+    "@discordjs/opus": "^0.1.0",
+    "bufferutil": "^4.0.1",
+    "concurrently": "^5.1.0",
+    "discord.js": "^12.0.2",
+    "dotenv": "^8.2.0",
+    "node-fetch": "^2.6.0",
+    "utf-8-validate": "^5.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.31",
+    "@typescript-eslint/eslint-plugin": "^2.25.0",
+    "@typescript-eslint/parser": "^2.25.0",
+    "dotenv-webpack": "^1.7.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.20.1",
+    "nodemon": "^2.0.2",
+    "ts-loader": "^6.2.2",
+    "typescript": "^3.8.3",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-node-externals": "^1.7.2"
   }
 }
