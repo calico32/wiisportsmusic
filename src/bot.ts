@@ -1,18 +1,21 @@
 import * as Discord from 'discord.js';
-import { config } from 'dotenv';
+import { config as dotenvConfig } from 'dotenv';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as YoutubeAPI from 'simple-youtube-api';
-import { prefix } from './commands/prefix';
-import { CommandArguments } from './commands/shared/args';
+import { globalCommands } from './commands';
+import playbackCommand from './commands/playback';
+import { CommandArguments, ConfigMap, defaults, GuildConfig, GuildQueue } from './commands/shared/args';
 import { Youtube } from './commands/shared/youtube';
 import { unrecognized } from './commands/unrecognized';
 import Util from './Util';
-config({ path: '../.env' });
+
+dotenvConfig({ path: '../.env' });
 
 const client = new Discord.Client();
 const youtube: Youtube = new YoutubeAPI(process.env.YOUTUBE_API_KEY);
 
+// ytdl('https://youtu.be/Xl2P4a7kM2U')
 
 const configFilePath = path.resolve('./data/config.json');
 let config = new Map<Discord.Snowflake, GuildConfig>();
