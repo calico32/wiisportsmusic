@@ -1,3 +1,6 @@
+# bot state
+data/
+
 # Logs
 logs
 *.log
