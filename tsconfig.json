@@ -1,12 +1,18 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "outDir": "dist",
+    "sourceMap": true,
     "module": "es6",
+    // "lib": [
+    //   "ES2015",
+    //   "ES2020.Promise",
+    //   "ES2020"
+    // ],
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "downlevelIteration": true,
-    "outDir": "dist",
-    "sourceMap": true
+    "allowSyntheticDefaultImports": true
   },
   "exclude": ["node_modules", ".vscode"]
 }
