@@ -1,7 +1,7 @@
 import { CommandArguments } from './shared/args';
-import { messageDetails } from './shared/messageDetails';
+import { sendCurrentState } from './shared/sendCurrentState';
 
-export function ping({ msg, args, cmd, serverPrefix }: CommandArguments) {
-  msg.channel.send(`Pong!
-${messageDetails({ msg, args, cmd, serverPrefix })}`);
+export async function ping({ msg, args, cmd, config, queue }: CommandArguments) {
+  await msg.channel.send(`Pong!`);
+  sendCurrentState({ msg, args, cmd, config, queue })
 }
