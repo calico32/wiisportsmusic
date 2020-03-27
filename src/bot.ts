@@ -1,20 +1,23 @@
 import * as Discord from 'discord.js';
 import { config } from 'dotenv';
+import * as fs from 'fs';
 import * as path from 'path';
-import { ping } from './commands/ping';
+import * as YoutubeAPI from 'simple-youtube-api';
 import { prefix } from './commands/prefix';
 import { CommandArguments } from './commands/shared/args';
+import { Youtube } from './commands/shared/youtube';
 import { unrecognized } from './commands/unrecognized';
-import * as fs from 'fs';
 import Util from './Util';
 config({ path: '../.env' });
 
 const client = new Discord.Client();
+const youtube: Youtube = new YoutubeAPI(process.env.YOUTUBE_API_KEY);
 
-const prefixesFilePath = path.resolve(process.env.NODE_PATH, 'data/prefixes.json');
 
-let prefixes: Map<Discord.Snowflake, string>;
-try {
+const configFilePath = path.resolve('./data/config.json');
+let config = new Map<Discord.Snowflake, GuildConfig>();
+let queue = new Map<Discord.Snowflake, any>();
+
 client.on('message', msg => {
   if (msg.author.bot) return;
   let guildConfigCache = config.get(msg.guild.id);
@@ -61,6 +64,10 @@ client.on('message', msg => {
     else unrecognized(execArgs);
   }
 });
+
+export function writeConfig(configMap: ConfigMap) {
+  fs.writeFileSync(configFilePath, Util.mapToJSON(configMap, true));
+}
 
 client
   .on('error', console.error)

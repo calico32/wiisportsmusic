@@ -1,18 +1,26 @@
 import { CommandArguments } from './shared/args';
-import { messageDetails } from './shared/messageDetails';
+import { sendCurrentState } from './shared/sendCurrentState';
 import * as fs from 'fs';
 import Util from '../Util';
+import { writeConfig } from '../bot';
 
-export function prefix({ msg, args, cmd, prefixes, prefixesFilePath }: CommandArguments) {
+export async function prefix({ msg, args, cmd, config, queue }: CommandArguments) {
+  const guildConfig = config.get(msg.guild.id);
+
   if (args.length > 1) {
-    msg.channel.send('Too many arguments; only supply one argument.')
+    msg.channel.send('Too many arguments; only supply one argument.');
     return;
   }
-  prefixes.set(msg.guild.id, args[0]);
-  const newPrefix = prefixes.get(msg.guild.id);
+  if (args.length == 0) {
+    msg.channel.send('Not enough arguments; supply exactly one argument.');
+    return;
+  }
+  guildConfig.prefix = args[0];
 
-  fs.writeFileSync(prefixesFilePath, Util.mapToJSON(prefixes));
+  config.set(msg.guild.id, guildConfig);
 
-  msg.channel.send(`Successfully set guild prefix to ${newPrefix}.
-${messageDetails({msg, args, cmd, serverPrefix: newPrefix })}`);
+  writeConfig(config);
+
+  await msg.channel.send(`Successfully set guild prefix to ${guildConfig.prefix}.`);
+  sendCurrentState({ msg, args, cmd, config, queue });
 }
