@@ -1,6 +1,8 @@
 const path = require('path');
-const Dotenv = require('dotenv-webpack');
+const { config: dotenvConfig } = require('dotenv');
 const nodeExternals = require('webpack-node-externals');
+const webpack = require('webpack');
+dotenvConfig({ path: './.env' });
 
 module.exports = {
   entry: {
@@ -28,7 +30,9 @@ module.exports = {
     ignored: ['public/**', 'node_modules/**'],
     aggregateTimeout: 300
   },
-  plugins: [new Dotenv()],
+  plugins: [
+    new webpack.EnvironmentPlugin(['DISCORD_BOT_TOKEN', 'YOUTUBE_API_KEY'])
+  ],
   externals: [nodeExternals()],
   module: {
     rules: [
