@@ -27,7 +27,7 @@ export default async function playbackCommand({ msg, cmd, args, config, queue, y
     // TODO case 'remove':
   }
 
-  msg.channel.send('Valid command recieved!');
+  msg.channel.send('Valid command received!');
   sendCurrentState({ msg, args, cmd, config, queue });
 }
 
@@ -61,7 +61,7 @@ async function videoLink({ cmd, args, msg, config, queue, youtube }: CommandArgu
     return;
   }
 
-  play({
+  addToQueue({
     msg,
     video,
     voiceChannel: msg.member.voice.channel,
@@ -86,39 +86,37 @@ async function playlistLink({ cmd, args, msg, config, queue, youtube }: CommandA
   sendCurrentState({ msg, args, cmd, config, queue });
 }
 
-async function play({ msg, video, voiceChannel, queue }: CommandArguments) {
+async function addToQueue({ msg, video, voiceChannel, queue }: CommandArguments) {
   const guildQueue = queue.get(msg.guild.id);
 
   const { id, title, url } = video;
   guildQueue.songs.push({ video: { id, title, url }, requester: msg.author });
+  queue.set(msg.guild.id, guildQueue);
 
-  if (guildQueue.playing) return;
-  else {
-    const connection = await voiceChannel.join();
-    voiceChannel.guild.voice.setSelfDeaf(true);
-    const dispatcher = connection
-    .play(
-      ytdl(video.url, {
-        filter: 'audioonly'
-      })
-    )
+  if (!guildQueue.playing) play({ queue, msg, voiceChannel, song: guildQueue.songs[0] });
+}
+
+async function play({ queue, msg, voiceChannel, song }: CommandArguments) {
+  const guildQueue = queue.get(msg.guild.id);
+
+  // no more songs in queue
+  if (!song) {
+    guildQueue.voiceChannel.leave();
+    queue.delete(msg.guild.id);
+    return;
+  }
+
+  guildQueue.playing = true;
+  if (guildQueue.connection == null) guildQueue.connection = await voiceChannel.join();
+  voiceChannel.guild.voice.setSelfDeaf(true);
+  guildQueue.connection
+    .play(ytdl(song.video.url, { filter: 'audioonly' }))
     .on('end', reason => {
       if (reason === 'Stream is not generating quickly enough.') console.log('Song ended.');
       else console.log(reason);
-      //serverQueue.songs.shift();
-      //play(guild, serverQueue.songs[0]);
+      guildQueue.songs.shift();
+      queue.set(msg.guild.id, guildQueue);
+      play({ queue, msg, voiceChannel, song: guildQueue.songs[0] });
     })
-    .on('error', error => console.error)
-    .on('disconnect', () => {});
-  }
+    .on('error', console.error);
 }
-/*
-export interface Song {
-  video: {
-    id: string;
-    title: string;
-    url: string;
-  }
-  requester: Discord.GuildMember;
-}
-*/
