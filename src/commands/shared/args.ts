@@ -10,6 +10,7 @@ export interface CommandArguments {
   queue?: QueueMap;
   youtube?: YoutubeAPI;
   video?: Video;
+  song?: Song;
   voiceChannel?: Discord.VoiceChannel;
 }
 export type ConfigMap = Map<Discord.Snowflake, GuildConfig>;
