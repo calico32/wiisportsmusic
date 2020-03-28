@@ -27,23 +27,23 @@ export interface Channel {
 
 }
 export interface Video {
-  channel: Channel;
-  description: string;
-  duration: DurationObject;
-  durationSeconds: number;
-  full: boolean;
-  id: string;
-  kind: string;
-  maxRes: object;
-  publishedAt: Date;
-  raw: object;
-  shortURL: string;
-  thumbnails;
-  title: string;
-  url: string;
-  youtube: YoutubeAPI;
-  extractID: (url: string) => string;
-  fetch: (options?: object) => Promise<Video>;
+  channel?: Channel;
+  description?: string;
+  duration?: DurationObject;
+  durationSeconds?: number;
+  full?: boolean;
+  id?: string;
+  kind?: string;
+  maxRes?: object;
+  publishedAt?: Date;
+  raw?: object;
+  shortURL?: string;
+  thumbnails?;
+  title?: string;
+  url?: string;
+  youtube?: YoutubeAPI;
+  extractID?: (url: string) => string;
+  fetch?: (options?: object) => Promise<Video>;
 }
 export interface Playlist {
   channel: Channel;
