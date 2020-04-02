@@ -1,6 +1,11 @@
-import { EmbedFieldData } from 'discord.js';
+import { EmbedFieldData, MessageAttachment } from 'discord.js';
+import path from 'path';
+
 
 export const embedDefaults = {
+  attachments: {
+    'circle-192.png': new MessageAttachment(path.resolve('./assets/circle-192.png'), 'circle-192.png')
+  },
   author: <[string, string, string]>['wiisportsmusic', 'attachment://circle-192.png', ''],
   color: '#1e90ff'
 };
