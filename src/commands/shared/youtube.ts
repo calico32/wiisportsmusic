@@ -38,12 +38,21 @@ export interface Video {
   publishedAt?: Date;
   raw?: object;
   shortURL?: string;
-  thumbnails?;
+  thumbnails?: {
+    default?: Thumbnail;
+    medium?: Thumbnail; 
+    high?: Thumbnail;
+  };
   title?: string;
   url?: string;
   youtube?: YoutubeAPI;
   extractID?: (url: string) => string;
   fetch?: (options?: object) => Promise<Video>;
+}
+export interface Thumbnail {
+  url: string;
+  width: number;
+  height: number;
 }
 export interface Playlist {
   channel: Channel;
