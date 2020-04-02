@@ -1,9 +1,11 @@
 import { writeConfig } from '../bot';
-import { CommandArguments } from './shared/args';
+import { CommandArguments } from './shared/types';
 import { sendCurrentState } from './shared/sendCurrentState';
+import { createControlMessages } from './music/controlMessages';
 
 export async function install({ msg, args, cmd, config, queue }: CommandArguments) {
   const guildConfig = config.get(msg.guild.id);
+  const guildQueue = queue.get(msg.guild.id);
   
   if (guildConfig.setupCompleted) {
     msg.channel.send(
@@ -25,6 +27,8 @@ export async function install({ msg, args, cmd, config, queue }: CommandArgument
   guildConfig.controlChannelId = controlChannel.id;
   guildConfig.setupCompleted = true;
   config.set(msg.guild.id, guildConfig);
+
+  if (guildQueue.thumbnailMessage == null && guildQueue.queueMessage == null) await createControlMessages({ msg, queue, config });
 
   await msg.channel.send(
     `The channel <#${controlChannel.id}> was successfully created. Use this channel to control the music and see what's playing. You can rename and move this channel however you wish.`
