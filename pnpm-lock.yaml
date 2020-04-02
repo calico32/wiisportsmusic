@@ -2,8 +2,9 @@ dependencies:
   '@discordjs/opus': 0.1.0
   bufferutil: 4.0.1
   concurrently: 5.1.0
-  discord.js: 12.0.2_b64e4c5d40d8a42be6fb5eda9795228a
+  discord.js: 12.0.2_714b7b2a785daecd9cc101e1a5660818
   dotenv: 8.2.0
+  ffmpeg-static: 4.0.1
   node-fetch: 2.6.0
   simple-youtube-api: 5.2.1
   utf-8-validate: 5.0.2
@@ -1112,6 +1113,14 @@ packages:
       node: '>=0.10'
     resolution:
       integrity: sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
+  /decompress-response/4.2.1:
+    dependencies:
+      mimic-response: 2.1.0
+    dev: false
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-jOSne2qbyE+/r8G1VU+G/82LBs2Fs4LAsTiLSHOCOMZQl2OKZ6i8i4IyHemTe+/yIXOtTcRQMzPcgyhoFlqPkw==
   /deep-extend/0.6.0:
     engines:
       node: '>=4.0.0'
@@ -1192,14 +1201,14 @@ packages:
     dev: true
     resolution:
       integrity: sha512-kqag/Nl+f3GwyK25fhUMYj81BUOrZ9IuJsjIcDE5icNM9FJHAVm3VcUDxdLPoQtTuUylWm6ZIknYJwwaPxsUzg==
-  /discord.js/12.0.2_b64e4c5d40d8a42be6fb5eda9795228a:
+  /discord.js/12.0.2_714b7b2a785daecd9cc101e1a5660818:
     dependencies:
       '@discordjs/collection': 0.1.5
       abort-controller: 3.0.0
       bufferutil: 4.0.1
       form-data: 3.0.0
       node-fetch: 2.6.0
-      prism-media: 1.2.1_@discordjs+opus@0.1.0
+      prism-media: 1.2.1_710a543abb692f6ba167a30064805b53
       setimmediate: 1.0.5
       tweetnacl: 1.0.3
       utf-8-validate: 5.0.2
@@ -1211,6 +1220,7 @@ packages:
       '@discordjs/opus': '*'
       bufferutil: ^4.0.1
       erlpack: discordapp/erlpack
+      ffmpeg-static: '*'
       libsodium-wrappers: ^0.7.6
       sodium: ^3.0.2
       utf-8-validate: ^5.0.2
@@ -1701,6 +1711,16 @@ packages:
     dev: true
     resolution:
       integrity: sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc=
+  /ffmpeg-static/4.0.1:
+    dependencies:
+      progress: 2.0.3
+      simple-get: 3.1.0
+    dev: false
+    engines:
+      node: '>=10'
+    requiresBuild: true
+    resolution:
+      integrity: sha512-tUGBiessDvslK6jfVpfrhm6NvXPrIOclSVsqI8FGx4uDPN6xvdH8mGghcZDOjXky65FjaRPcTu3y/8Ne6VXRtQ==
   /figgy-pudding/3.5.2:
     dev: true
     resolution:
@@ -2830,6 +2850,12 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==
+  /mimic-response/2.1.0:
+    dev: false
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-wXqjST+SLt7R009ySCglWBCFpjUygmCIfD790/kVbiGmUgfYGuB14PiTd5DwVxSV4NcYHjzMkoj5LjQZwTQLEA==
   /miniget/1.7.0:
     dev: false
     engines:
@@ -3481,9 +3507,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-1PRWKwzjaW5BrFLQ4ALlemNdxtw=
-  /prism-media/1.2.1_@discordjs+opus@0.1.0:
+  /prism-media/1.2.1_710a543abb692f6ba167a30064805b53:
     dependencies:
       '@discordjs/opus': 0.1.0
+      ffmpeg-static: 4.0.1
     dev: false
     peerDependencies:
       '@discordjs/opus': ^0.1.0
@@ -3511,7 +3538,6 @@ packages:
     resolution:
       integrity: sha1-czIwDoQBYb2j5podHZGn1LwW8YI=
   /progress/2.0.3:
-    dev: true
     engines:
       node: '>=0.4.0'
     resolution:
@@ -3917,6 +3943,18 @@ packages:
   /signal-exit/3.0.2:
     resolution:
       integrity: sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
+  /simple-concat/1.0.0:
+    dev: false
+    resolution:
+      integrity: sha1-c0TLuLbib7J9ZrL8hvn21Zl1IcY=
+  /simple-get/3.1.0:
+    dependencies:
+      decompress-response: 4.2.1
+      once: 1.4.0
+      simple-concat: 1.0.0
+    dev: false
+    resolution:
+      integrity: sha512-bCR6cP+aTdScaQCnQKbPKtJOKDp/hj9EDLJo3Nw4y1QksqaovlW/bnptB6/c1e+qmNIDHRK+oXFDdEqBT8WzUA==
   /simple-youtube-api/5.2.1:
     dependencies:
       iso8601-duration: 1.2.0
@@ -4833,6 +4871,7 @@ specifiers:
   dotenv-webpack: ^1.7.0
   eslint: ^6.8.0
   eslint-plugin-import: ^2.20.1
+  ffmpeg-static: ^4.0.1
   node-fetch: ^2.6.0
   nodemon: ^2.0.2
   simple-youtube-api: ^5.2.1
