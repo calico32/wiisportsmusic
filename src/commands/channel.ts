@@ -1,4 +1,4 @@
-import { CommandArguments } from './shared/args';
+import { CommandArguments } from './shared/types';
 
 export function channel({ msg, config }: CommandArguments) {
   const guildConfig = config.get(msg.guild.id);

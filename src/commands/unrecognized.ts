@@ -1,4 +1,4 @@
-import { CommandArguments } from './shared/args';
+import { CommandArguments } from './shared/types';
 import { sendCurrentState } from './shared/sendCurrentState';
 
 export async function unrecognized({ msg, args, cmd, queue, config }: CommandArguments) {

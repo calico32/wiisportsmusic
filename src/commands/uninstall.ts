@@ -1,5 +1,5 @@
 import { writeConfig } from '../bot';
-import { CommandArguments, defaults } from './shared/args';
+import { CommandArguments, defaults } from './shared/types';
 import { sendCurrentState } from './shared/sendCurrentState';
 
 export async function uninstall({ msg, args, cmd, config, queue }: CommandArguments) {

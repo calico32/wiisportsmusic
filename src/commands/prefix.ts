@@ -1,4 +1,4 @@
-import { CommandArguments } from './shared/args';
+import { CommandArguments } from './shared/types';
 import { sendCurrentState } from './shared/sendCurrentState';
 import * as fs from 'fs';
 import Util from '../Util';

@@ -1,5 +1,5 @@
 import { MessageEmbed } from 'discord.js';
-import { CommandArguments } from './args';
+import { CommandArguments } from './types';
 import { createFields, embedDefaults } from './embed';
 
 export async function sendCurrentState({ msg, args, cmd, config, queue }: CommandArguments) {

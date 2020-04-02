@@ -1,6 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 import * as path from 'path';
-import { CommandArguments } from './shared/args';
+import { CommandArguments } from './shared/types';
 import { createFields, embedDefaults, embedSpacer } from './shared/embed';
 import { sendCurrentState } from './shared/sendCurrentState';
 
