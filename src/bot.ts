@@ -4,8 +4,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as YoutubeAPI from 'simple-youtube-api';
 import { globalCommands } from './commands';
-import playbackCommand from './commands/playback';
-import { CommandArguments, ConfigMap, defaults, GuildConfig, GuildQueue } from './commands/shared/args';
+import controlEntry from './commands/music/entry';
+import { CommandArguments, ConfigMap, defaults, GuildConfig, GuildQueue, GuildVoice } from './commands/shared/types';
 import { Youtube } from './commands/shared/youtube';
 import { unrecognized } from './commands/unrecognized';
 import Util from './Util';
@@ -19,7 +19,8 @@ const youtube: Youtube = new YoutubeAPI(process.env.YOUTUBE_API_KEY);
 
 const configFilePath = path.resolve('./data/config.json');
 let config = new Map<Discord.Snowflake, GuildConfig>();
-let queue = new Map<Discord.Snowflake, any>();
+let queue = new Map<Discord.Snowflake, GuildQueue>();
+let voice = new Map<Discord.Snowflake, GuildVoice>();
 
 client.on('message', msg => {
   if (msg.author.bot) return;
@@ -48,6 +49,13 @@ client.on('message', msg => {
     queue.set(msg.guild.id, defaults.queue);
   }
 
+  let guildVoice: GuildVoice;
+  if (voice.has(msg.guild.id)) guildVoice = voice.get(msg.guild.id);
+  else {
+    guildVoice = defaults.voice;
+    voice.set(msg.guild.id, defaults.voice);
+  }
+
   const inControlChannel = msg.channel.id === guildConfig.controlChannelId;
   if (!msg.content.startsWith(guildConfig.prefix) && !inControlChannel) return;
   if (inControlChannel && msg.content.match(/<(.+)>/)) msg.content = msg.content.replace(/<(.+)>/g, '');
@@ -58,10 +66,10 @@ client.on('message', msg => {
   if (!inControlChannel) cmd = cmd.toLowerCase().slice(guildConfig.prefix.length);
   else if (msg.content.startsWith(guildConfig.prefix) && inControlChannel) cmd = cmd.slice(guildConfig.prefix.length);
 
-  const execArgs: CommandArguments = { msg, args, cmd, config, queue, youtube };
+  const execArgs: CommandArguments = { msg, args, cmd, config, queue, voice, youtube, client };
 
   if (inControlChannel) {
-    playbackCommand(execArgs);
+    controlEntry(execArgs);
   } else {
     if (Object.hasOwnProperty.call(globalCommands, cmd)) globalCommands[cmd](execArgs);
     else unrecognized(execArgs);
