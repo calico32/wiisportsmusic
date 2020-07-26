@@ -12,9 +12,9 @@ export class CommandAbout implements Command {
   async executor(cmdArgs: CmdArgs): Promise<void | Message> {
     const embed = new Embed().setTitle('about!!!!!!1');
     embed
-      .addField('wheere is source code', 'go to https://github.com/wiisportsresort/soundboard-bot')
-      .addField('why is this so bad', 'i made it in under 12 hours ok')
-      .addField('hi', 'hello');
+      .addField('wheere is source code', 'go to https://github.com/wiisportsresort/wiisportsmusic')
+      .addField('why is this so bad', 'yes')
+      .addField('bye', 'g00dbEy');
     return cmdArgs.msg.channel.send(embed);
   }
 }

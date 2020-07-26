@@ -1,34 +1,30 @@
 import { Message } from 'discord.js';
 import { CmdArgs } from '../types';
-import { CommandAdd } from './add';
+import { CommandAbout } from './about';
 import { CommandHelp } from './help';
-import { CommandLs } from './ls';
-import { CommandMv } from './mv';
 import { CommandPlay } from './play';
 import { CommandPrefix } from './prefix';
-import { CommandRm } from './rm';
-import { CommandAbout } from './about';
+import { CommandQueue } from './queue';
 import { CommandSkip } from './skip';
 import { CommandStop } from './stop';
 
 export interface Command {
-  cmd: string;
+  cmd: string | string[];
   executor: (args: CmdArgs) => Promise<void | Message>;
-  docs: {
-    usage: string;
-    description: string;
-  };
+  docs: CommandDocs | CommandDocs[];
+}
+
+export interface CommandDocs {
+  usage: string | string[];
+  description: string;
 }
 
 export const commands: Command[] = [
   new CommandAbout(),
-  new CommandAdd(),
   new CommandHelp(),
-  new CommandLs(),
-  new CommandMv(),
   new CommandPlay(),
   new CommandPrefix(),
-  new CommandRm(),
+  new CommandQueue(),
   new CommandSkip(),
   new CommandStop(),
 ];

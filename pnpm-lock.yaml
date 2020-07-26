@@ -10,8 +10,10 @@ dependencies:
   lodash: 4.17.19
   mime-types: 2.1.27
   random-words: 1.1.1
+  simple-youtube-api: 5.2.1
   utf-8-validate: 5.0.2
   uuid: 8.2.0
+  ytdl-core: 3.1.3
   zlib-sync: 0.1.7
 devDependencies:
   '@types/fs-extra': 9.0.1
@@ -2263,6 +2265,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-eSmmWE5bZTK2Nou4g0AI3zZ9rswp7GRKoKXS1BLUkvPviOqs4YTN1djQIqrXy9k5gEtdLPy86JjRwsNM9tnDcA==
+  /html-entities/1.3.1:
+    dev: false
+    resolution:
+      integrity: sha512-rhE/4Z3hIhzHAUKbW8jVcCyuT5oJCXXqhN/6mXXVCpzTmvJnoH2HL/bt3EZ6p55jbFJBeAe1ZNpL5BugLujxNA==
   /http-cache-semantics/4.1.0:
     dev: true
     resolution:
@@ -2635,6 +2641,10 @@ packages:
   /isexe/2.0.0:
     resolution:
       integrity: sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=
+  /iso8601-duration/1.2.0:
+    dev: false
+    resolution:
+      integrity: sha512-ErTBd++b17E8nmWII1K1uZtBgD1E8RjyvwmxlCjPHNqHMD7gmcMHOw0E8Ro/6+QT4PhHRSnnMo7bxa1vFPkwhg==
   /isobject/2.1.0:
     dependencies:
       isarray: 1.0.0
@@ -2836,6 +2846,15 @@ packages:
     dev: true
     resolution:
       integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==
+  /m3u8stream/0.7.1:
+    dependencies:
+      miniget: 1.7.2
+      sax: 1.2.4
+    dev: false
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-z6ldnAdhbuWOL6LmMkwptSZGzj+qbRytMKLTbNicwF/bJMjf9U9lqD57RNQUFecvWadEkzy6PDjcNJFFgi19uQ==
   /make-dir/2.1.0:
     dependencies:
       pify: 4.0.1
@@ -2952,6 +2971,18 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-j5EctnkH7amfV/q5Hgmoal1g2QHFJRraOtmx0JpIqkxhBhI/lJSl1nMpQ45hVarwNETOoWEimndZ4QK0RHxuxQ==
+  /miniget/1.7.2:
+    dev: false
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-USPNNK2bnHLOplX8BZVMehUkyQizS/DFpBdoH0TS+fM+hQoLNg9tWg4MeY9wE8gfY0pbzmx5UBEODujt3Lz8AA==
+  /miniget/2.0.1:
+    dev: false
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-MX+QfVIPAutz6c+T7WKuFKtjcw0nOyRRh1ubhTDD+z/e/pKcSAsfAV63aQKUgb1MFRT1GyfJeW53N5fHkX0wIA==
   /minimalistic-assert/1.0.1:
     dev: true
     resolution:
@@ -3998,6 +4029,13 @@ packages:
   /signal-exit/3.0.3:
     resolution:
       integrity: sha512-VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA==
+  /simple-youtube-api/5.2.1:
+    dependencies:
+      iso8601-duration: 1.2.0
+      node-fetch: 2.6.0
+    dev: false
+    resolution:
+      integrity: sha512-vmndP9Bkh35tifn2OwY+th2imSsfYtmDqczgdOW5yEARFzvSoR8VSQFsivJnctfV5QHQUL6VrOpNdbmDRLh9Bg==
   /slice-ansi/2.1.0:
     dependencies:
       ansi-styles: 3.2.1
@@ -4918,6 +4956,17 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==
+  /ytdl-core/3.1.3:
+    dependencies:
+      html-entities: 1.3.1
+      m3u8stream: 0.7.1
+      miniget: 2.0.1
+      sax: 1.2.4
+    dev: false
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-Z8Hehrj6nY6/SzyPJDVjfG5iGI33dMVclJveixz4WVPzbxwYsVF7hogKm7cnrarW+gRVs3DtP+RRRDV0wnBf5Q==
   /zlib-sync/0.1.7:
     dependencies:
       nan: 2.14.1
@@ -4961,6 +5010,7 @@ specifiers:
   mime-types: ^2.1.27
   nodemon: ^2.0.4
   random-words: ^1.1.1
+  simple-youtube-api: ^5.2.1
   source-map-loader: ^1.0.1
   ts-loader: ^8.0.1
   ts-node: ^8.10.2
@@ -4970,4 +5020,5 @@ specifiers:
   webpack: ^4.43.0
   webpack-cli: ^3.3.12
   webpack-node-externals: ^2.5.0
+  ytdl-core: ^3.1.3
   zlib-sync: ^0.1.7

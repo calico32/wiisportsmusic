@@ -1,4 +1,7 @@
 import * as Discord from 'discord.js';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import * as YouTube from 'simple-youtube-api';
 import { Store } from './store';
 
 export interface GuildConfig {
@@ -6,17 +9,18 @@ export interface GuildConfig {
 }
 
 export interface GuildQueue {
-  sounds: Sound[];
+  videos: Video[];
   voiceChannel?: Discord.VoiceChannel;
   textChannel?: Discord.TextChannel;
   voiceConnection?: Discord.VoiceConnection;
   playing: boolean;
 }
 
-export interface Sound {
-  uuid: string;
-  mimeType: string;
-  id: string;
+export interface Video {
+  url: string;
+  title: string;
+  lengthSeconds: number;
+  requesterId: string;
 }
 
 export interface CmdArgs {
@@ -25,6 +29,6 @@ export interface CmdArgs {
   cmd: string;
   configStore: Store<GuildConfig>;
   queueStore: Store<GuildQueue>;
-  soundStore: Store<Sound>;
   client: Discord.Client;
+  youtube: YouTube;
 }

@@ -14,7 +14,7 @@ export class CommandStop implements Command {
 
     if (!queue.playing) return msg.channel.send("yo i ain't even playing");
 
-    queue.sounds = [];
+    queue.videos = [];
     queue.voiceConnection?.dispatcher.end('stop command');
 
     return msg.channel.send('ok it stopped');
