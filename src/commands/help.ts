@@ -25,9 +25,13 @@ export class CommandHelp implements Command {
 
       embed.addField(fieldName, fieldValue + '\n---', false);
     }
-    const user = await msg.author?.fetch();
-    user?.dmChannel.send(embed);
-    msg.channel.send('yo i dm\'d you the help message gg bro');
+    try {
+      const dm = await msg.author?.createDM();
+      dm?.send(embed);
+      msg.channel.send('yo i dm\'d you the help message gg bro');
+    } catch (err) {
+      msg.channel.send('lmao i couldnt send the dm\n```\n' + err + '\n```');
+    }
   }
 
   formatFieldValue(docs: CommandDocs): string {
