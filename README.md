@@ -1,5 +1,7 @@
 # a cringey youtube bot
 
+## NOTE: functionality merged into [gamerbot](https://github.com/gamer-gang/gamerbot)
+
 ## how to run
 
 - use your favorite package manager to install dependencies.
